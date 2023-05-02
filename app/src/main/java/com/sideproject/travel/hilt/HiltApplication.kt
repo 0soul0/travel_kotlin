@@ -1,4 +1,4 @@
-package com.sideproject.foodpandafake.hilt
+package com.sideproject.travel.hilt
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

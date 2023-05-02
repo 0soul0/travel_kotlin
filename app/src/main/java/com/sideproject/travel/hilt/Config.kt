@@ -1,5 +1,5 @@
-package com.sideproject.foodpandafake.hilt
+package com.sideproject.travel.hilt
 
 object Config {
-    const val FoodPandaURL = "https://www.foodpanda.com.tw/"
+    const val BaseURL = "https://www.travel.taipei/open-api/"
 }

@@ -1,15 +1,14 @@
-package com.sideproject.foodpandafake.hilt
+package com.sideproject.travel.hilt
 
-import android.content.Context
+import com.sideproject.travel.api.TravelApi
+import com.sideproject.travel.repo.TravelRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 
@@ -20,7 +19,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(Config.FoodPandaURL)
+        .baseUrl(Config.BaseURL)
 //        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
@@ -34,14 +33,23 @@ object AppModule {
                 chain.proceed(
                     chain.request()
                         .newBuilder()
-                        .removeHeader("User-Agent")
                         .addHeader(
-                            "User-Agent",
-                            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (HTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"
+                            "accept",
+                            "application/json"
                         )
                         .build()
                 )
             }.build()
     }
+
+    @Singleton
+    @Provides
+    fun provideTravelRepo(retrofit: Retrofit): TravelRepo =
+        TravelRepo(retrofit.create(TravelApi::class.java))
+
+    @Singleton
+    @Provides
+    fun provideSSS(): String =
+        "SSSSSSS"
 
 }
