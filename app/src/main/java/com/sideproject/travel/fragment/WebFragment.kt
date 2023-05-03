@@ -13,7 +13,6 @@ import com.sideproject.travel.MainViewModel
 import com.sideproject.travel.R
 import com.sideproject.travel.databinding.FragmentWebBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Objects
 
 
 @AndroidEntryPoint

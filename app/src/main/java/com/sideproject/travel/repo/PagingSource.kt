@@ -8,8 +8,6 @@ import com.sideproject.travel.hilt.Data.Companion.languages
 import com.sideproject.travel.model.Data
 import com.sideproject.travel.repo.TravelRepo.Companion.NETWORK_PAGE_SIZE
 import java.io.IOException
-import java.lang.Math.max
-import java.time.LocalDateTime
 
 private const val GITHUB_STARTING_PAGE_INDEX = 1
 var language: String=languages[0].value

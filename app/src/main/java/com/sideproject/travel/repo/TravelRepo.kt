@@ -12,13 +12,12 @@ class TravelRepo(private val service: TravelService) {
 
     fun queryViews(): Flow<PagingData<Data>> {
 
-        var factory = { PagingSource(service) }
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = factory
+            pagingSourceFactory = { PagingSource(service) }
         ).flow
     }
 
