@@ -1,6 +1,6 @@
 package com.sideproject.travel.hilt
 
-import com.sideproject.travel.api.TravelApi
+import com.sideproject.travel.api.TravelService
 import com.sideproject.travel.repo.TravelRepo
 import dagger.Module
 import dagger.Provides
@@ -45,7 +45,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideTravelRepo(retrofit: Retrofit): TravelRepo =
-        TravelRepo(retrofit.create(TravelApi::class.java))
+        TravelRepo(retrofit.create(TravelService::class.java))
 
     @Singleton
     @Provides

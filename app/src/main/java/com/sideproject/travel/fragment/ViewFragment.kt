@@ -10,6 +10,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.sideproject.travel.MainActivity
@@ -18,6 +20,8 @@ import com.sideproject.travel.R
 import com.sideproject.travel.databinding.FragmentViewListBinding
 import com.sideproject.travel.hilt.Data
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewFragment : Fragment(R.layout.fragment_view_list), MenuProvider {
@@ -48,8 +52,13 @@ class ViewFragment : Fragment(R.layout.fragment_view_list), MenuProvider {
     }
 
     private fun observer() {
-        mainViewModel.queryViews(mainViewModel.language, 1).observe(requireActivity()) {
-            viewAdapter.setData(it)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.queryViews(mainViewModel.language).collectLatest {
+                    viewAdapter.submitData(it)
+                }
+            }
         }
     }
 
@@ -81,7 +90,7 @@ class ViewFragment : Fragment(R.layout.fragment_view_list), MenuProvider {
             dialog.findViewById<RecyclerView>(R.id.rv_language).also {
                 it.adapter = DialogAdapter(Data.language).apply {
                     setOnItemClickLister { language, _ ->
-                        mainViewModel.queryViews(language.value, 1)
+                        mainViewModel.queryViews(language.value)
                         dialog.dismiss()
                     }
                 }

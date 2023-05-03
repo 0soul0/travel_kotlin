@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface TravelApi {
+interface TravelService {
     @GET("{language}/Attractions/All")
     suspend fun queryViews(@Path("language") language: String,@Query("page") page:String): Response<View>
 

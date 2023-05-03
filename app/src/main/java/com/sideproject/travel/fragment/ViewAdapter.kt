@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sideproject.travel.databinding.ItemViewBinding
 import com.sideproject.travel.model.Data
 
-class ViewAdapter : RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
+class ViewAdapter : PagingDataAdapter<Data, ViewAdapter.ViewHolder>(ARTICLE_DIFF_CALLBACK) {
 
     private var onItemClickLister: ((Data, Int) -> Unit)? = null
-    private var values: List<Data> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -26,14 +27,8 @@ class ViewAdapter : RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
 
     }
 
-
-    fun setData(values: List<Data>) {
-        this.values = values
-        notifyItemRangeChanged(0, values.size)
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = getItem(position) ?: return
         holder.run {
             Glide.with(holder.itemView).load(
                 if (item.images.isNotEmpty())
@@ -52,7 +47,6 @@ class ViewAdapter : RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
 
     }
 
-    override fun getItemCount(): Int = values.size
 
     fun setOnItemClickLister(lister: (Data, Int) -> Unit) {
         onItemClickLister = lister
@@ -65,4 +59,14 @@ class ViewAdapter : RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
 
     }
 
+
+    companion object {
+        private val ARTICLE_DIFF_CALLBACK = object : DiffUtil.ItemCallback<Data>() {
+            override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean =
+                oldItem == newItem
+        }
+    }
 }
