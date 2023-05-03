@@ -10,21 +10,15 @@ import kotlinx.coroutines.flow.Flow
 class TravelRepo(private val service: TravelService) {
 
 
-//    suspend fun queryViews(language: String, page: String): List<Data> {
-//        val res = travelApi.queryViews(language, page)
-//        return res.body()?.data ?: emptyList()
-//    }
+    fun queryViews(): Flow<PagingData<Data>> {
 
-
-    fun queryViews(language: String): Flow<PagingData<Data>> {
-
-        val pagingSourceFactory = { PagingSource(service, language) }
+        var factory = { PagingSource(service) }
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = pagingSourceFactory,
+            pagingSourceFactory = factory
         ).flow
     }
 
