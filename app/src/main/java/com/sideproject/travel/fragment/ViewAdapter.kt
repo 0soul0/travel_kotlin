@@ -1,10 +1,10 @@
 package com.sideproject.travel.fragment
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sideproject.travel.databinding.ItemViewBinding
 import com.sideproject.travel.model.Data
@@ -29,7 +29,7 @@ class ViewAdapter : RecyclerView.Adapter<ViewAdapter.ViewHolder>() {
 
     fun setData(values: List<Data>) {
         this.values = values
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, values.size)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

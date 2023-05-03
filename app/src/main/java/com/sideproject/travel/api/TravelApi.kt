@@ -1,7 +1,6 @@
 package com.sideproject.travel.api
 
 import com.sideproject.travel.model.View
-import org.intellij.lang.annotations.Language
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

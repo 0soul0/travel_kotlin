@@ -1,14 +1,10 @@
 package com.sideproject.travel.fragment
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.RecyclerView
 import com.sideproject.travel.databinding.ItemLanguageBinding
-import com.sideproject.travel.databinding.ItemViewBinding
-import com.sideproject.travel.model.Data
 import com.sideproject.travel.model.Language
 
 class DialogAdapter(private var values: List<Language>) :

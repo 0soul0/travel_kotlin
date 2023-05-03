@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.sideproject.travel.MainActivity
 import com.sideproject.travel.MainViewModel
 import com.sideproject.travel.R
 import com.sideproject.travel.databinding.FragmentDetailBinding
@@ -22,7 +23,16 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailBinding.bind(view)
 
+        setToolbar()
+
         bindData()
+    }
+
+    private fun setToolbar() {
+        (activity as MainActivity).apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.title="景點詳細"
+        }
     }
 
     private fun bindData() {
